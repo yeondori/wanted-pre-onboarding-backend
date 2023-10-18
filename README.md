@@ -1,6 +1,7 @@
 # wanted-pre-onboarding-backend
 
 🚀[프리온보딩 백엔드 인턴십 선발과제](https://bow-hair-db3.notion.site/1850bca26fda4e0ca1410df270c03409) 수행 내용
+자세한 수행 과정 기록은 <https://yeondori.github.io/> 에서 볼 수 있습니다.
 
 ## 👆🏻프로젝트 요구사항
 
@@ -93,14 +94,16 @@ data.sql 참고
 PostRepository
 ```java
 @Query("SELECT p FROM JobPosting p " +
-"WHERE p.company.name LIKE %:keyword% " +
-"OR p.company.country LIKE %:keyword% " +
-"OR p.company.region LIKE %:keyword% " +
-"OR p.jobPosition LIKE %:keyword% " +
-"OR p.technologyUsed LIKE %:keyword%")
+        "WHERE p.company.name LIKE %:keyword% " +
+        "OR p.company.country LIKE %:keyword% " +
+        "OR p.company.region LIKE %:keyword% " +
+        "OR p.jobPosition LIKE %:keyword% " +
+        "OR p.recruitmentDetails LIKE %:keyword% " +
+        "OR p.technologyUsed LIKE %:keyword% " +
+        "OR CAST(p.recruitmentCompensation AS string) LIKE %:keyword%")
 List<JobPosting> findBySearchKeyword(String keyword);
 ```
-
+++23.1018 11:42 수정
 
 PostService
 
@@ -263,6 +266,7 @@ Case 5: 채용 공고가 삭제되어 존재하지 않는 경우
 
 ## ⚒️Develop
 
+- 테스트 
 - 기업, 사용자 ID 등록 및 인증 절차
 - 엔티티 연관관계, 함수 개선
 - URI 변수명 통일
