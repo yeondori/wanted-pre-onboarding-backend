@@ -34,11 +34,6 @@ public class CompanyController {
     }
 
     //채용공고 등록 폼
-//    @GetMapping("/{id}/new")
-//    public String createForm(@PathVariable Long id, Model model) {
-//        model.addAttribute("companyId", id);
-//        return "companies/createdPostForm";
-//    }
     @GetMapping("/{id}/new")
     public String showJobPostingForm(@PathVariable Long id, Model model) {
         model.addAttribute("companyId", id);
@@ -110,6 +105,7 @@ public class CompanyController {
         return "companies/editJobPosting";
     }
 
+    //채용공고 수정결과 업데이트
     @PostMapping("/updateJobPosting/{jobPostingId}")
     public String updateJobPosting(@PathVariable Long jobPostingId, @ModelAttribute JobPosting updatedJobPosting) {
         postService.updatePost(updatedJobPosting);
