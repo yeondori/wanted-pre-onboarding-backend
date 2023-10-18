@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Create a New Job Posting</title>
+</head>
+<body>
+<h1>채용공고 등록화면</h1>
+<form th:action="@{'/companies/' + ${companyId} + '/new'}" method="post">
+  <label for="companyId">Company ID:</label>
+  <input type="text" id="companyId" name="companyId" th:value="${companyId}" readonly="readonly"><br>
+
+  <label for="jobPosition">Job Position:</label>
+  <input type="text" id="jobPosition" name="jobPosition" required placeholder="채용 포지션을 입력하세요"><br>
+
+  <label for="recruitmentCompensation">Recruitment Compensation:</label>
+  <input type="number" id="recruitmentCompensation" name="recruitmentCompensation" required placeholder="채용 보상금을 입력하세요"><br>
+
+  <label for="recruitmentDetails" style="vertical-align: top;">Recruitment Details:</label>
+  <textarea id="recruitmentDetails" name="recruitmentDetails" rows="5" cols="50" required placeholder="채용 내용을 입력하세요"></textarea><br>
+
+  <label for="technologyUsed">Technology Used:</label>
+  <input type="text" id="technologyUsed" name="technologyUsed" required placeholder="사용 기술을 입력하세요"><br>
+
+  <button type="submit">채용공고 등록하기</button>
+</form>
+</body>
+</html>

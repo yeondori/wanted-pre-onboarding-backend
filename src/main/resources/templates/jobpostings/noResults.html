@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>검색 결과 없음</title>
+</head>
+<body>
+<h1> 검색 결과가 없습니다</h1>
+<p th:utext="'검색어 <strong>' + ${keyword} + '</strong>와 일치하는 채용 공고가 없습니다.'"></p>
+<a href="/jobpostings">채용 공고 목록 보기</a>  <a href="/">홈으로 돌아가기</a>
+</body>
+</html>
