@@ -36,7 +36,7 @@ public class PostController {
         List<JobPosting> jobPostings = postService.findAll();
         List<JobPostingDTO> jobPostingDTOS = mapToJobPostingDTOList(jobPostings);
         model.addAttribute("jobPostingDTOs", jobPostingDTOS);
-        return "jobpostings/home"; // Thymeleaf 템플릿 파일 이름
+        return "jobpostings/home";
     }
 
     // 채용공고 상세
@@ -60,6 +60,25 @@ public class PostController {
         return "jobpostings/postDetails";
     }
 
+    // 채용공고 검색
+    @GetMapping("/search")
+    public String searchJobPostings(@RequestParam("keyword") String keyword, Model model) {
+        if (keyword.isEmpty()) {
+            return "redirect:/jobpostings";
+        } else {
+            List<JobPosting> searchResults = postService.findBySearchKeyword(keyword);
+            model.addAttribute("keyword", keyword);
+
+            if (searchResults.isEmpty()) {
+                return "jobpostings/noResults"; // 검색 결과가 없는 경우에 대한 뷰
+            } else {
+                List<JobPostingDTO> searchResultsDTO = mapToJobPostingDTOList(searchResults);
+                model.addAttribute("searchResults", searchResultsDTO);
+
+                return "jobpostings/searchResults"; // 검색 결과가 있는 경우에 대한 뷰
+            }
+        }
+    }
 
     // 채용공고 지원
     public static final int SUCCESS = 1;
@@ -70,7 +89,6 @@ public class PostController {
     @PostMapping("/{id}/apply")
     public String applyForJob(@PathVariable Long id, @RequestParam String memberId, Model model) {
         Long applicantId = Long.parseLong(memberId);
-        Map<String, Object> response = new HashMap<>();
         int status = SUCCESS;
 
         if (memberService.findById(applicantId).isEmpty()) {
@@ -95,28 +113,6 @@ public class PostController {
         model.addAttribute("applicantId", applicantId);
         model.addAttribute("applyStatus", status);
         return "jobpostings/applyResult";
-    }
-
-
-
-    // 채용공고 검색
-    @GetMapping("/search")
-    public String searchJobPostings(@RequestParam("keyword") String keyword, Model model) {
-        if (keyword.isEmpty()) {
-            return "redirect:/jobpostings";
-        } else {
-            List<JobPosting> searchResults = postService.findBySearchKeyword(keyword);
-            model.addAttribute("keyword", keyword);
-
-            if (searchResults.isEmpty()) {
-                return "jobpostings/noResults"; // 검색 결과가 없는 경우에 대한 뷰
-            } else {
-                List<JobPostingDTO> searchResultsDTO = mapToJobPostingDTOList(searchResults);
-                model.addAttribute("searchResults", searchResultsDTO);
-
-                return "jobpostings/searchResults"; // 검색 결과가 있는 경우에 대한 뷰
-            }
-        }
     }
 
     private List<JobPostingDTO> mapToJobPostingDTOList(List<JobPosting> jobPostings) {

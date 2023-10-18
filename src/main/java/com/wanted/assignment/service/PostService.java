@@ -38,7 +38,7 @@ public class PostService {
 
     public List<JobPosting> findBySearchKeyword(String keyword) { return postRepository.findBySearchKeyword(keyword);}
 
-    public JobPosting updatePost(JobPosting updatedJobPosting) {
+    public void updatePost(JobPosting updatedJobPosting) {
 
         Optional<JobPosting> targetJobPosting = postRepository.findById(updatedJobPosting.getId());
 
@@ -46,7 +46,7 @@ public class PostService {
             Company company = targetJobPosting.get().getCompany();
             updatedJobPosting.setCompany(company);
         }
-        return postRepository.save(updatedJobPosting);
+        postRepository.save(updatedJobPosting);
     }
 
     public Long findCompanyIdById(Long id) {

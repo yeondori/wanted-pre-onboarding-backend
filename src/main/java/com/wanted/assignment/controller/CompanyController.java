@@ -33,13 +33,29 @@ public class CompanyController {
         return "companies/companiesHome";
     }
 
+    //기업 회원 페이지
+    @GetMapping("/{companyId}")
+    public String getJobPostingsByCompany(@PathVariable Long companyId, Model model) {
+        Optional<Company> company = companyService.findById(companyId);
+
+        if (!company.isPresent()) {
+            return "Company ID가 존재하지 않습니다.";
+        }
+
+        List<JobPosting> jobPostings = postService.findByCompanyId(company.get().getId());
+
+        model.addAttribute("jobPostings", jobPostings);
+        model.addAttribute("company", company.get());
+
+        return "companies/postList";
+    }
+
     //채용공고 등록 폼
     @GetMapping("/{id}/new")
     public String showJobPostingForm(@PathVariable Long id, Model model) {
         model.addAttribute("companyId", id);
-        return "companies/createdPostForm"; // 적절한 Thymeleaf 뷰 이름을 사용
+        return "companies/createdPostForm";
     }
-
 
     //채용공고 등록
     @PostMapping("/{id}/new")
@@ -64,24 +80,6 @@ public class CompanyController {
         return "redirect:/companies/" + companyId;
     }
 
-    //기업 회원 페이지
-    @GetMapping("/{companyId}")
-    public String getJobPostingsByCompany(@PathVariable Long companyId, Model model) {
-        Optional<Company> company = companyService.findById(companyId);
-
-        if (!company.isPresent()) {
-            // 처리할 예외 로직 추가
-            return "Company ID가 존재하지 않습니다.";
-        }
-
-        List<JobPosting> jobPostings = postService.findByCompanyId(company.get().getId());
-
-        model.addAttribute("jobPostings", jobPostings);
-        model.addAttribute("company", company.get());
-
-        return "companies/postList";
-    }
-
     //채용공고 삭제
     @DeleteMapping("/deleteJobPosting/{postId}")
     public String deleteJobPosting(@PathVariable Long postId) {
@@ -96,7 +94,6 @@ public class CompanyController {
         Optional<JobPosting> jobPosting = postService.findById(jobPostingId);
 
         if (!jobPosting.isPresent()) {
-            // 처리할 예외 로직 추가
             return "채용 공고를 찾을 수 없습니다.";
         }
 
