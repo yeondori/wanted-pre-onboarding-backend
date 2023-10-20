@@ -1,7 +1,7 @@
 # wanted-pre-onboarding-backend
 
 🚀[프리온보딩 백엔드 인턴십 선발과제](https://bow-hair-db3.notion.site/1850bca26fda4e0ca1410df270c03409) 수행 내용
-자세한 수행 과정 기록은 <https://yeondori.github.io/> 에서 볼 수 있습니다.
+자세한 수행 과정 기록은 <https://yeondori.github.io/posts/pre-onboarding-01/> 에서 볼 수 있습니다.
 
 ## 👆🏻프로젝트 요구사항
 
