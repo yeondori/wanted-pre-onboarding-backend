@@ -80,19 +80,25 @@
 
 - **JobPosting**: 채용공고
 
-    | 필드명          | 타입     | 설명      |
-    |:-------------|:-------|:--------|
-    | id           | Long   | 채용공고 id |
-    | position     | String | 채용명     |
-    | compensation | int    | 소속 국가   |
-    | details      | String | 소속 지역   |
-    | teckStack    | String | 소속 지역   |
+    | 필드명          | 타입      | 설명      |
+    |:-------------|:--------|:--------|
+    | id           | Long    | 채용공고 id |
+    | position     | String  | 채용명     |
+    | compensation | Integer | 채용보상금   |
+    | details      | String  | 상세 내용   |
+    | teckStack    | String  | 사용 기술   |
 
+- **Member**: 사용자 
+    
+    | 필드명  | 타입      | 설명     |
+    |:-----|:--------|:-------|
+    | id   | Long    | 사용자 id |
+    | name | String  | 사용자명   |
 
 ## 📄데이터 모델링 및 계층 구조
 
 ### 데이터 모델링
-![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/faaa016c-cdd7-490c-ba66-1c4e94057384)
+![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/4292292a-ae83-4e58-808f-b94dbdb940da)
 
 ### Web Appication 계층 구조
 ![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/1c1f068b-31ec-4c3b-a375-1d98804411b4)
