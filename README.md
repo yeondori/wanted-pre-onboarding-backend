@@ -67,10 +67,32 @@
 - Java: 17
 - Dependencies: Lombok, Spring Web, Thymeleaf, Spring Data JPA, H2 Database ... 
 
+## 필드 상세
+
+- **Company**: 회사
+
+    | 필드명     | 타입     | 설명    |
+    |:--------|:-------|:------|
+    | id      | Long   | 회사 id |
+    | name    | String | 회사명   |
+    | country | String | 소속 국가 |
+    | region  | String | 소속 지역 |
+
+- **JobPosting**: 채용공고
+
+    | 필드명          | 타입     | 설명      |
+    |:-------------|:-------|:--------|
+    | id           | Long   | 채용공고 id |
+    | position     | String | 채용명     |
+    | compensation | int    | 소속 국가   |
+    | details      | String | 소속 지역   |
+    | teckStack    | String | 소속 지역   |
+
+
 ## 📄데이터 모델링 및 계층 구조
 
 ### 데이터 모델링
-![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/e0e2220b-ac70-41c3-98e6-548186654279)
+![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/faaa016c-cdd7-490c-ba66-1c4e94057384)
 
 ### Web Appication 계층 구조
 ![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/1c1f068b-31ec-4c3b-a375-1d98804411b4)
