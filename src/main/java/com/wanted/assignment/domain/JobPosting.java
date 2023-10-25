@@ -1,6 +1,5 @@
 package com.wanted.assignment.domain;
 
-import com.fasterxml.jackson.annotation.JsonFilter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
@@ -26,10 +25,10 @@ public class JobPosting {
     @JsonIgnoreProperties({"id"})
     private Company company;
 
-    private String jobPosition;
-    private Long recruitmentCompensation;
-    private String recruitmentDetails;
-    private String technologyUsed;
+    private String position;
+    private Long compensation;
+    private String details;
+    private String techStack;
 
     @OneToMany(mappedBy = "appliedPosting", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
