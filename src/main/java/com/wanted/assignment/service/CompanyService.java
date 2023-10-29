@@ -1,9 +1,7 @@
 package com.wanted.assignment.service;
 
 import com.wanted.assignment.domain.Company;
-import com.wanted.assignment.domain.JobPosting;
 import com.wanted.assignment.repository.CompanyRepository;
-import com.wanted.assignment.repository.PostRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,7 +30,7 @@ public class CompanyService {
     public List<Long> getJobPostingsForCompany(Long companyId) {
         Company company = companyRepository.findById(companyId).orElse(null);
         if (company != null) {
-            return company.getJobPostingIdList();
+            return companyRepository.getJobPostingIdList(companyId);
         }
         return Collections.emptyList();
     }
