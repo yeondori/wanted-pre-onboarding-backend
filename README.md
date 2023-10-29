@@ -1,7 +1,7 @@
 # wanted-pre-onboarding-backend
 
 🚀[프리온보딩 백엔드 인턴십 선발과제](https://bow-hair-db3.notion.site/1850bca26fda4e0ca1410df270c03409) 수행 내용
-자세한 수행 과정 기록은 <https://yeondori.github.io/posts/pre-onboarding-01/> 에 있습니다.
+자세한 수행 과정은 <https://yeondori.github.io/posts/pre-onboarding-01/> 에 기록해 두었습니다.
 
 ## 👆🏻프로젝트 요구사항
 
@@ -131,36 +131,9 @@ PostRepository
         "OR CAST(p.recruitmentCompensation AS string) LIKE %:keyword%")
 List<JobPosting> findBySearchKeyword(String keyword);
 ```
-++23.1018 11:42 수정
+++23.10.18 11:42 수정
 
-PostService
 
-```java
-public List<JobPosting> findBySearchKeyword(String keyword) { return postRepository.findBySearchKeyword(keyword);}
-```
-PostController
-
-```java
-// 채용공고 검색
-@GetMapping("/search")
-public String searchJobPostings(@RequestParam("keyword") String keyword, Model model) {
-if (keyword.isEmpty()) {
-return "redirect:/jobpostings"; // 검색 키워드가 없는 경우 채용공고 목록 반환
-} else {
-List<JobPosting> searchResults = postService.findBySearchKeyword(keyword);
-model.addAttribute("keyword", keyword);
-
-            if (searchResults.isEmpty()) {
-                return "jobpostings/noResults"; // 검색 결과가 없는 경우에 대한 뷰
-            } else {
-                List<JobPostingDTO> searchResultsDTO = mapToJobPostingDTOList(searchResults);
-                model.addAttribute("searchResults", searchResultsDTO);
-
-                return "jobpostings/searchResults"; // 검색 결과가 있는 경우에 대한 뷰
-            }
-        }
-    }
-```
 
 ![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/c069ef9b-2a0f-4073-bc88-01b813b01c8d)
 
@@ -202,82 +175,8 @@ model.addAttribute("keyword", keyword);
 ##### 일반회원 - 상세 페이지
 다른 공고가 존재하지 않는 경우 "존재하지 않습니다." 메세지를 출력하고, 존재하는 경우 해당 공고의 ID 리스트를 하이퍼링크 형식으로 제공.
 
-Company 엔티티에 getJobPostingIdList 메소드를 생성
-```java
-public List<Long> getJobPostingIdList() {
-List<Long> idList = new ArrayList<>();
-for (JobPosting jobPosting : jobPostingList) {
-idList.add(jobPosting.getId());
-}
-return idList;
-}
-```
 
-PostController에서 상세 정보를 가져오는 메소드를 생성한다.
-Company의 getJobPostingIdList로 가져온 리스트에서 현재의 채용공고 ID를 삭제한 후 이를 반환한다.
-(리스트가 비어있는 경우 "None" 을 반환)
-```java
-// 채용공고 상세
-@GetMapping("/{id}")
-public String retrieveDetails(@PathVariable Long id, Model model) {
-Optional<JobPosting> selectedPost = postService.findById(id);
-if (!selectedPost.isPresent()) {
-throw new UserNotFoundException(String.format("ID[%s] is not found", id));
-}
-model.addAttribute("jobPosting", selectedPost.get());
-
-        List<Long> jobPostingIdList = selectedPost.get().getCompany().getJobPostingIdList();
-        jobPostingIdList.remove(id); // 현재 채용공고 ID를 삭제
-
-        if (jobPostingIdList.isEmpty()) {
-            model.addAttribute("anotherPosts", "None");
-        } else {
-            model.addAttribute("anotherPosts", jobPostingIdList);
-        }
-
-        return "jobpostings/postDetails";
-    }
-```
 ##### 일반회원 - 지원 기능
-
-PostController의 채용공고 지원 메소드 
-```java
-// 채용공고 지원
-public static final int SUCCESS = 1;
-public static final int MEMBER_NOT_FOUND = 2;
-public static final int POST_NOT_FOUND = 3;
-public static final int ALREADY_APPLIED = 4;
-
-    @PostMapping("/{id}/apply")
-    public String applyForJob(@PathVariable Long id, @RequestParam String memberId, Model model) {
-        Long applicantId = Long.parseLong(memberId);
-        Map<String, Object> response = new HashMap<>();
-        int status = SUCCESS;
-
-        if (memberService.findById(applicantId).isEmpty()) {
-            status = MEMBER_NOT_FOUND;
-        } else {
-            Optional<JobPosting> selectedPost = postService.findById(id);
-            if (!selectedPost.isPresent()) {
-                status = POST_NOT_FOUND;
-            } else {
-                JobPosting jobPosting = selectedPost.get();
-                Member applicant = memberService.findById(applicantId).get();
-                if (applicant.getAppliedPosting() != null) {
-                    status = ALREADY_APPLIED;
-                } else {
-                    applicant.setAppliedPosting(jobPosting);
-                    memberService.save(applicant);
-                    postService.save(jobPosting);
-                }
-            }
-        }
-        model.addAttribute("jobPostingId", id);
-        model.addAttribute("applicantId", applicantId);
-        model.addAttribute("applyStatus", status);
-        return "jobpostings/applyResult";
-    }
-```
 
 ![image](https://github.com/yeondori/wanted-pre-onboarding-backend/assets/93027942/217d0a59-2102-4413-aa77-ad88fa51b41c)
 Case 5: 채용 공고가 삭제되어 존재하지 않는 경우
