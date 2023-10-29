@@ -2,7 +2,6 @@ package com.wanted.assignment.controller;
 
 import com.wanted.assignment.domain.JobPosting;
 import com.wanted.assignment.service.JobPostingDTO;
-import com.wanted.assignment.domain.Member;
 import com.wanted.assignment.exception.UserNotFoundException;
 import com.wanted.assignment.service.MemberService;
 import com.wanted.assignment.service.PostService;
@@ -36,16 +35,16 @@ public class PostController {
     }
 
     // 채용공고 상세
-    @GetMapping("/{id}")
-    public String retrieveDetails(@PathVariable Long id, Model model) {
-        Optional<JobPosting> selectedPost = postService.findById(id);
+    @GetMapping("/{postId}")
+    public String retrieveDetails(@PathVariable Long postId, Model model) {
+        Optional<JobPosting> selectedPost = postService.findById(postId);
         if (!selectedPost.isPresent()) {
-            throw new UserNotFoundException(String.format("ID[%s] is not found", id));
+            throw new UserNotFoundException(String.format("ID[%s] is not found", postId));
         }
         model.addAttribute("jobPosting", selectedPost.get());
 
         List<Long> jobPostingIdList = postService.getJobPostingIdList(selectedPost.get().getCompany().getId());
-        jobPostingIdList.remove(id); // 현재 채용공고 ID를 삭제
+        jobPostingIdList.remove(postId); // 현재 채용공고 ID를 삭제
 
         if (jobPostingIdList.isEmpty()) {
             model.addAttribute("anotherPosts", "None");
@@ -78,8 +77,8 @@ public class PostController {
 
     // 채용공고 지원
 
-    @PostMapping("/{id}/apply")
-    public String applyForJob(@PathVariable Long id, @RequestParam String memberId, Model model) {
+    @PostMapping("/{postId}/apply")
+    public String applyForJob(@PathVariable Long postId, @RequestParam String memberId, Model model) {
 
         return "jobpostings/applyResult";
     }
