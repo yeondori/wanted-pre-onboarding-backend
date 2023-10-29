@@ -30,8 +30,8 @@ public class JobPosting {
     private String details;
     private String techStack;
 
-    @OneToMany(mappedBy = "appliedPosting", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "jobPosting", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<Member> applicantList = new ArrayList<>();
+    private List<Member> applicants = new ArrayList<>();
 
 }
