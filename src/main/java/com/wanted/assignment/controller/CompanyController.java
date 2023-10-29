@@ -2,13 +2,10 @@ package com.wanted.assignment.controller;
 
 import com.wanted.assignment.domain.Company;
 import com.wanted.assignment.domain.JobPosting;
-import com.wanted.assignment.repository.CompanyRepository;
-import com.wanted.assignment.repository.PostRepository;
 import com.wanted.assignment.service.CompanyService;
 import com.wanted.assignment.service.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
@@ -70,10 +67,10 @@ public class CompanyController {
         JobPosting newPost = new JobPosting();
 
         newPost.setCompany(company);
-        newPost.setJobPosition(form.getJobPosition());
-        newPost.setRecruitmentDetails(form.getRecruitmentDetails());
-        newPost.setTechnologyUsed(form.getTechnologyUsed());
-        newPost.setRecruitmentCompensation(form.getRecruitmentCompensation());
+        newPost.setPosition(form.getJobPosition());
+        newPost.setDetails(form.getRecruitmentDetails());
+        newPost.setTechStack(form.getTechnologyUsed());
+        newPost.setCompensation(form.getRecruitmentCompensation());
 
         postService.save(newPost);
 
