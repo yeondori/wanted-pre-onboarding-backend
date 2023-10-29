@@ -76,10 +76,11 @@ public class PostController {
     }
 
     // 채용공고 지원
-
     @PostMapping("/{postId}/apply")
     public String applyForJob(@PathVariable Long postId, @RequestParam String memberId, Model model) {
-
+        model.addAttribute("jobPostingId", postId);
+        model.addAttribute("memberId", memberId);
+        model.addAttribute("applyStatus", postService.apply(postId, Long.parseLong(memberId)));
         return "jobpostings/applyResult";
     }
 }
