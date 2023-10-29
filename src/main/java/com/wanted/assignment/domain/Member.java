@@ -16,10 +16,10 @@ public class Member {
     private String name;
 
     @ManyToOne
-    private JobPosting appliedPosting;
+    private JobPosting jobPosting;
 
-    public void setAppliedPosting(JobPosting appliedPosting) {
-        this.appliedPosting = appliedPosting;
-        appliedPosting.getApplicantList().add(this);
+    public void setJobPosting(JobPosting appliedPosting) {
+        this.jobPosting = appliedPosting;
+        appliedPosting.getApplicants().add(this);
     }
 }
