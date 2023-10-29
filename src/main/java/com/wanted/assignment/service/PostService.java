@@ -2,7 +2,9 @@ package com.wanted.assignment.service;
 
 import com.wanted.assignment.domain.Company;
 import com.wanted.assignment.domain.JobPosting;
+import com.wanted.assignment.domain.Member;
 import com.wanted.assignment.repository.CompanyRepository;
+import com.wanted.assignment.repository.MemberRepository;
 import com.wanted.assignment.repository.PostRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,9 +12,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+
+import static com.wanted.assignment.service.ApplyStatus.*;
 
 @Service
 @Transactional
@@ -20,11 +23,13 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final CompanyRepository companyRepository;
+    private final MemberRepository memberRepository;
 
     @Autowired
-    public PostService(PostRepository postRepository, CompanyRepository companyRepository) {
+    public PostService(PostRepository postRepository, CompanyRepository companyRepository, MemberRepository memberRepository) {
         this.postRepository = postRepository;
         this.companyRepository = companyRepository;
+        this.memberRepository = memberRepository;
     }
 
     public void save(JobPosting jobPosting) {
@@ -82,5 +87,21 @@ public class PostService {
         }
 
         return jobPostingDTOs;
+    }
+
+    public ApplyStatus apply(Long postId, Long memberId) {
+
+        Optional<Member> member = memberRepository.findById(memberId);
+        Optional<JobPosting> selectedPost = postRepository.findById(postId);
+
+        if (member.isEmpty()) return MEMBER_NOT_FOUND;
+        if (selectedPost.isEmpty()) return POST_NOT_FOUND;
+        if (member.get().getJobPosting() != null)return ALREADY_APPLIED;
+
+        member.get().setJobPosting(selectedPost.get());
+        memberRepository.save(member.get());
+        postRepository.save(selectedPost.get());
+
+        return SUCCESS;
     }
 }
