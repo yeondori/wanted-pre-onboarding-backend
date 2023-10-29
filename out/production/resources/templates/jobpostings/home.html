@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>채용공고 목록</title>
+  <style>
+    table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    th, td {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+<h1> 채용공고 목록</h1>
+<table>
+  <tr>
+    <th>채용공고ID</th>
+    <th>회사명</th>
+    <th>국가</th>
+    <th>지역</th>
+    <th>채용포지션</th>
+    <th>채용보상금</th>
+    <th>사용기술</th>
+    <th>비고</th>
+  </tr>
+  <tr th:each="jobPostingDTO : ${jobPostingDTOs}">
+    <td th:text="${jobPostingDTO.id}">ID</td>
+    <td th:text="${jobPostingDTO.companyName}">CompanyName</td>
+    <td th:text="${jobPostingDTO.companyCountry}">CompanyCountry</td>
+    <td th:text="${jobPostingDTO.companyRegion}">CompanyRegion</td>
+    <td th:text="${jobPostingDTO.jobPosition}">JobPosition</td>
+    <td th:text="${jobPostingDTO.recruitmentCompensation}">RecruitmentCompensation</td>
+    <td th:text="${jobPostingDTO.technologyUsed}">TechnologyUsed</td>
+    <td><a th:href="@{/jobpostings/{id}(id=${jobPostingDTO.id})}">상세보기</a></td>
+  </tr>
+</table>
+<div>
+  <br><a th:href="@{/}">홈으로 돌아가기</a>
+</div>
+</body>
+</html>

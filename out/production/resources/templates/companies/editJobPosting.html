@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>채용공고 수정</title>
+</head>
+<body>
+<h1>채용공고 수정</h1>
+
+<form th:action="@{'/companies/updateJobPosting/' + ${jobPosting.id}}" method="post">
+    <input type="hidden" name="id" th:value="${jobPosting.id}" />
+
+    <label for="position">채용 포지션:</label>
+    <input type="text" id="position" name="position" th:value="${jobPosting.getPosition}" />
+    <br />
+
+    <label for="compensation">채용 보상금:</label>
+    <input type="text" id="compensation" name="compensation" th:value="${jobPosting.getCompensation}" />
+    <br />
+
+    <label for="details" style="vertical-align: top;">채용 내용:</label>
+    <textarea id="details" name="details" rows="5" cols="50">
+    [[${jobPosting.getDetails}]]</textarea>
+    <br />
+
+    <label for="techStack">사용 기술:</label>
+    <input type="text" id="techStack" name="techStack" th:value="${jobPosting.getTechStack}" />
+    <br />
+
+    <button type="submit">수정</button>
+</form>
+
+</body>
+</html>

@@ -1,0 +1,37 @@
+<!-- applyResult.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>지원 결과</title>
+</head>
+<body>
+<h1> 지원 결과</h1>
+<div id="resultMessage">
+    <h3 th:if="${applyStatus == 2}">존재하는 회원이 아닙니다.</h3>
+    <h3 th:if="${applyStatus == 3}">채용공고가 존재하지 않습니다.</h3>
+    <h3 th:if="${applyStatus == 4}">이미 채용공고에 지원하여, 지원이 불가합니다.</h3>
+</div>
+
+<!-- 공고 및 지원자 ID 출력 -->
+<div th:if="${applyStatus == 1}">
+    <h3>지원이 완료되었습니다. 지원하신 내역은 다음과 같습니다.</h3>
+    <table style="border: 2px solid #ddd; background-color: #f5f5f5; padding: 10px;">
+        <tr>
+            <td style="font-weight: bold;">채용공고 ID:</td>
+            <td><span th:text="${id}"></span></td>
+        </tr>
+        <tr>
+            <td style="font-weight: bold;">지원자 ID:</td>
+            <td><span th:text="${applicantId}"></span></td>
+        </tr>
+    </table><br>
+</div>
+
+<!-- 채용목록 둘러보기 및 채용공고로 돌아가기 버튼 추가 -->
+<div class="job-details">
+    <a th:href="@{'/jobpostings/' + ${id}}">채용공고로 돌아가기</a><br>
+    <a th:href="@{/jobpostings}">채용목록 둘러보기</a>
+</div>
+</body>
+</html>

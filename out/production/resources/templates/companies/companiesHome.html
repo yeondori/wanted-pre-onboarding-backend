@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>기업 회원 전용 페이지</title>
+</head>
+<body>
+<h1>기업 회원 전용 페이지입니다.</h1>
+<form id="companyForm">
+  <input type="text" placeholder="기업 ID를 입력하세요" id="companyIdInput" />
+  <button type="button" onclick="redirectToCompanyPage()">기업 페이지로 이동</button>
+</form>
+
+<script>
+  function redirectToCompanyPage() {
+    var companyId = document.getElementById("companyIdInput").value;
+    if (companyId) {
+      window.location.href = "/companies/" + companyId;
+    } else {
+      alert("기업 ID를 입력하세요.");
+    }
+  }
+</script>
+</body>
+</html>

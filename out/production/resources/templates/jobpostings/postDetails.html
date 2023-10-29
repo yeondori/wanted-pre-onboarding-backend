@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>채용공고 상세 페이지</title>
+  <style>
+    .job-details {
+      margin: 20px;
+    }
+    .apply-form {
+      margin: 20px;
+      padding: 10px;
+      border: 1px solid #ddd;
+    }
+    h3 {
+      font-weight: normal;
+    }
+
+  </style>
+</head>
+<body>
+<h1> 채용공고 상세 페이지</h1>
+<div class="job-details">
+  <h3 th:utext="'<strong>채용공고ID:</strong> ' + ${jobPosting.id}"></h3>
+  <h3 th:utext="'<strong>회사명:</strong> ' + ${jobPosting.company.name}"></h3>
+  <h3 th:utext="'<strong>국가:</strong> ' + ${jobPosting.company.country}"></h3>
+  <h3 th:utext="'<strong>지역:</strong> ' + ${jobPosting.company.region}"></h3>
+  <h3 th:utext="'<strong>채용포지션:</strong> ' + ${jobPosting.getPosition}"></h3>
+  <h3 th:utext="'<strong>채용보상금:</strong> ' + ${jobPosting.getCompensation}"></h3>
+  <h3 th:utext="'<strong>사용기술:</strong> ' + ${jobPosting.getTechStack}"></h3>
+  <h3 th:utext="'<strong>채용내용:</strong> ' + ${jobPosting.getDetails}"></h3>
+  <h3><strong>다른 공고:</strong></h3>
+  <!-- anotherPosts가 "None"인 경우에 메시지 표시 -->
+  <h3 th:if="${anotherPosts == 'None'}"> 존재하지 않습니다.</h3>
+  <!-- anotherPosts가 "None"이 아닌 경우에는 하이퍼링크 목록 표시 -->
+  <ul th:unless="${anotherPosts == 'None'}">
+    <!-- "다른 공고:" 메시지 스타일 변경 -->
+    <li th:each="postId : ${anotherPosts}">
+      <a th:href="@{'/jobpostings/' + ${postId}}">게시물 ID: <span th:text="${postId}"></span></a>
+    </li>
+  </ul>
+</div>
+<div class="apply-form">
+  <h4>해당 공고에 관심이 있으신가요?</h4>
+  <form th:action="@{'/jobpostings/' + ${jobPosting.id} + '/apply'}" method="post" onsubmit="return confirm('해당 공고에 지원하시겠습니까?\n지원은 1회만 가능하며 철회할 수 없습니다.')">
+    <label for="memberId"></label>
+    <input type="text" id="memberId" name="memberId" required placeholder="지원자 ID를 입력하세요"/>
+    <button type="submit">지원하기</button>
+  </form>
+</div>
+<div class="job-details">
+  <a th:href="@{/jobpostings}">채용목록으로 돌아가기</a>
+</div>
+</body>
+</html>
