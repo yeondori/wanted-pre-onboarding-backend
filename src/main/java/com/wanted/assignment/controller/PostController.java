@@ -77,37 +77,10 @@ public class PostController {
     }
 
     // 채용공고 지원
-    public static final int SUCCESS = 1;
-    public static final int MEMBER_NOT_FOUND = 2;
-    public static final int POST_NOT_FOUND = 3;
-    public static final int ALREADY_APPLIED = 4;
 
     @PostMapping("/{id}/apply")
     public String applyForJob(@PathVariable Long id, @RequestParam String memberId, Model model) {
-        Long applicantId = Long.parseLong(memberId);
-        int status = SUCCESS;
 
-        if (memberService.findById(applicantId).isEmpty()) {
-            status = MEMBER_NOT_FOUND;
-        } else {
-            Optional<JobPosting> selectedPost = postService.findById(id);
-            if (!selectedPost.isPresent()) {
-                status = POST_NOT_FOUND;
-            } else {
-                JobPosting jobPosting = selectedPost.get();
-                Member applicant = memberService.findById(applicantId).get();
-                if (applicant.getJobPosting() != null) {
-                    status = ALREADY_APPLIED;
-                } else {
-                    applicant.setJobPosting(jobPosting);
-                    memberService.save(applicant);
-                    postService.save(jobPosting);
-                }
-            }
-        }
-        model.addAttribute("jobPostingId", id);
-        model.addAttribute("applicantId", applicantId);
-        model.addAttribute("applyStatus", status);
         return "jobpostings/applyResult";
     }
 }
