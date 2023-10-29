@@ -36,9 +36,9 @@
     <td th:text="${jobPostingDTO.companyName}">CompanyName</td>
     <td th:text="${jobPostingDTO.companyCountry}">CompanyCountry</td>
     <td th:text="${jobPostingDTO.companyRegion}">CompanyRegion</td>
-    <td th:text="${jobPostingDTO.jobPosition}">JobPosition</td>
-    <td th:text="${jobPostingDTO.recruitmentCompensation}">RecruitmentCompensation</td>
-    <td th:text="${jobPostingDTO.technologyUsed}">TechnologyUsed</td>
+    <td th:text="${jobPostingDTO.getPosition}">JobPosition</td>
+    <td th:text="${jobPostingDTO.getCompensation}">RecruitmentCompensation</td>
+    <td th:text="${jobPostingDTO.getTechStack}">TechnologyUsed</td>
     <td><a th:href="@{/jobpostings/{id}(id=${jobPostingDTO.id})}">상세보기</a></td>
   </tr>
 </table>
