@@ -12,8 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
-    @Id
-    @GeneratedValue
+경    @Id @GeneratedValue
     @Column(name = "COMPANY_ID")
     private Long id;
 
@@ -23,13 +22,5 @@ public class Company {
 
     @OneToMany(mappedBy = "company", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
-    private List<JobPosting> jobPostingList = new ArrayList<>();
-
-    public List<Long> getJobPostingIdList() {
-        List<Long> idList = new ArrayList<>();
-        for (JobPosting jobPosting : jobPostingList) {
-            idList.add(jobPosting.getId());
-        }
-        return idList;
-    }
+    private List<JobPosting> jobPostings = new ArrayList<>();
 }
