@@ -48,14 +48,14 @@ public class CompanyController {
     }
 
     //채용공고 등록 폼
-    @GetMapping("/{id}/new")
-    public String showJobPostingForm(@PathVariable Long id, Model model) {
-        model.addAttribute("companyId", id);
+    @GetMapping("/{companyId}/new")
+    public String showJobPostingForm(@PathVariable Long companyId, Model model) {
+        model.addAttribute("companyId", companyId);
         return "companies/createdPostForm";
     }
 
     //채용공고 등록
-    @PostMapping("/{id}/new")
+    @PostMapping("/{companyId}/new")
     public String create(PostForm form) {
         Company company = companyService.findById(form.getCompanyId()).orElse(null);
 
