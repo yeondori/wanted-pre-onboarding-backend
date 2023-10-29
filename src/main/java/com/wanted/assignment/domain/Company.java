@@ -12,7 +12,7 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Company {
-경    @Id @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "COMPANY_ID")
     private Long id;
 
