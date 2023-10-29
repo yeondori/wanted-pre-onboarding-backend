@@ -19,7 +19,7 @@
     <table style="border: 2px solid #ddd; background-color: #f5f5f5; padding: 10px;">
         <tr>
             <td style="font-weight: bold;">채용공고 ID:</td>
-            <td><span th:text="${id}"></span></td>
+            <td><span th:text="${postId}"></span></td>
         </tr>
         <tr>
             <td style="font-weight: bold;">지원자 ID:</td>
@@ -30,7 +30,7 @@
 
 <!-- 채용목록 둘러보기 및 채용공고로 돌아가기 버튼 추가 -->
 <div class="job-details">
-    <a th:href="@{'/jobpostings/' + ${id}}">채용공고로 돌아가기</a><br>
+    <a th:href="@{'/jobpostings/' + ${postId}}">채용공고로 돌아가기</a><br>
     <a th:href="@{/jobpostings}">채용목록 둘러보기</a>
 </div>
 </body>
