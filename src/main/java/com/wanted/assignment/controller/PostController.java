@@ -1,16 +1,12 @@
 package com.wanted.assignment.controller;
 
 import com.wanted.assignment.domain.JobPosting;
-import com.wanted.assignment.domain.JobPostingDTO;
+import com.wanted.assignment.service.JobPostingDTO;
 import com.wanted.assignment.domain.Member;
 import com.wanted.assignment.exception.UserNotFoundException;
 import com.wanted.assignment.service.MemberService;
 import com.wanted.assignment.service.PostService;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +18,7 @@ import java.util.*;
 public class PostController {
 
     private final PostService postService;
-    private final MemberService memberService; // MemberService를 추가
+    private final MemberService memberService;
 
     @Autowired
     public PostController(PostService postService, MemberService memberService) {
@@ -34,7 +30,7 @@ public class PostController {
     @GetMapping("")
     public String retrieveAllPosts(Model model) {
         List<JobPosting> jobPostings = postService.findAll();
-        List<JobPostingDTO> jobPostingDTOS = mapToJobPostingDTOList(jobPostings);
+        List<JobPostingDTO> jobPostingDTOS = postService.mapToJobPostingDTOList(jobPostings);
         model.addAttribute("jobPostingDTOs", jobPostingDTOS);
         return "jobpostings/home";
     }
@@ -48,7 +44,7 @@ public class PostController {
         }
         model.addAttribute("jobPosting", selectedPost.get());
 
-        List<Long> jobPostingIdList = selectedPost.get().getCompany().getJobPostingIdList();
+        List<Long> jobPostingIdList = postService.getJobPostingIdList(selectedPost.get().getCompany().getId());
         jobPostingIdList.remove(id); // 현재 채용공고 ID를 삭제
 
         if (jobPostingIdList.isEmpty()) {
@@ -72,7 +68,7 @@ public class PostController {
             if (searchResults.isEmpty()) {
                 return "jobpostings/noResults"; // 검색 결과가 없는 경우에 대한 뷰
             } else {
-                List<JobPostingDTO> searchResultsDTO = mapToJobPostingDTOList(searchResults);
+                List<JobPostingDTO> searchResultsDTO = postService.mapToJobPostingDTOList(searchResults);
                 model.addAttribute("searchResults", searchResultsDTO);
 
                 return "jobpostings/searchResults"; // 검색 결과가 있는 경우에 대한 뷰
@@ -100,10 +96,10 @@ public class PostController {
             } else {
                 JobPosting jobPosting = selectedPost.get();
                 Member applicant = memberService.findById(applicantId).get();
-                if (applicant.getAppliedPosting() != null) {
+                if (applicant.getJobPosting() != null) {
                     status = ALREADY_APPLIED;
                 } else {
-                    applicant.setAppliedPosting(jobPosting);
+                    applicant.setJobPosting(jobPosting);
                     memberService.save(applicant);
                     postService.save(jobPosting);
                 }
@@ -113,25 +109,6 @@ public class PostController {
         model.addAttribute("applicantId", applicantId);
         model.addAttribute("applyStatus", status);
         return "jobpostings/applyResult";
-    }
-
-    private List<JobPostingDTO> mapToJobPostingDTOList(List<JobPosting> jobPostings) {
-        List<JobPostingDTO> jobPostingDTOs = new ArrayList<>();
-
-        for (JobPosting jobPosting : jobPostings) {
-            JobPostingDTO dto = new JobPostingDTO();
-            dto.setId(jobPosting.getId());
-            dto.setCompanyName(jobPosting.getCompany().getName());
-            dto.setCompanyCountry(jobPosting.getCompany().getCountry());
-            dto.setCompanyRegion(jobPosting.getCompany().getRegion());
-            dto.setJobPosition(jobPosting.getJobPosition());
-            dto.setRecruitmentCompensation(jobPosting.getRecruitmentCompensation());
-            dto.setTechnologyUsed(jobPosting.getTechnologyUsed());
-
-            jobPostingDTOs.add(dto);
-        }
-
-        return jobPostingDTOs;
     }
 }
 
