@@ -15,10 +15,10 @@ public interface PostRepository extends JpaRepository<JobPosting, Long> {
             "WHERE p.company.name LIKE %:keyword% " +
             "OR p.company.country LIKE %:keyword% " +
             "OR p.company.region LIKE %:keyword% " +
-            "OR p.jobPosition LIKE %:keyword% " +
-            "OR p.recruitmentDetails LIKE %:keyword% " +
-            "OR p.technologyUsed LIKE %:keyword% " +
-            "OR CAST(p.recruitmentCompensation AS string) LIKE %:keyword%")
+            "OR p.position LIKE %:keyword% " +
+            "OR p.details LIKE %:keyword% " +
+            "OR p.techStack LIKE %:keyword% " +
+            "OR CAST(p.compensation AS string) LIKE %:keyword%")
     List<JobPosting> findBySearchKeyword(String keyword);
 
     List<JobPosting> findByCompanyId(Long companyId);
