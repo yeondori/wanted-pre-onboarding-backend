@@ -11,11 +11,11 @@
     <input type="hidden" name="id" th:value="${jobPosting.id}" />
 
     <label for="jobPosition">채용 포지션:</label>
-    <input type="text" id="jobPosition" name="jobPosition" th:value="${jobPosting.jobPosition}" />
+    <input type="text" id="jobPosition" name="jobPosition" th:value="${jobPosting.getPosition}" />
     <br />
 
     <label for="recruitmentCompensation">채용 보상금:</label>
-    <input type="text" id="recruitmentCompensation" name="recruitmentCompensation" th:value="${jobPosting.recruitmentCompensation}" />
+    <input type="text" id="recruitmentCompensation" name="recruitmentCompensation" th:value="${jobPosting.getCompensation}" />
     <br />
 
     <label for="recruitmentDetails" style="vertical-align: top;">채용 내용:</label>
@@ -24,7 +24,7 @@
     <br />
 
     <label for="technologyUsed">사용 기술:</label>
-    <input type="text" id="technologyUsed" name="technologyUsed" th:value="${jobPosting.technologyUsed}" />
+    <input type="text" id="technologyUsed" name="technologyUsed" th:value="${jobPosting.getTechStack}" />
     <br />
 
     <button type="submit">수정</button>

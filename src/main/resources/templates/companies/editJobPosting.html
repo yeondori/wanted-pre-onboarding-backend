@@ -10,21 +10,21 @@
 <form th:action="@{'/companies/updateJobPosting/' + ${jobPosting.id}}" method="post">
     <input type="hidden" name="id" th:value="${jobPosting.id}" />
 
-    <label for="jobPosition">채용 포지션:</label>
-    <input type="text" id="jobPosition" name="jobPosition" th:value="${jobPosting.jobPosition}" />
+    <label for="position">채용 포지션:</label>
+    <input type="text" id="position" name="position" th:value="${jobPosting.getPosition}" />
     <br />
 
-    <label for="recruitmentCompensation">채용 보상금:</label>
-    <input type="text" id="recruitmentCompensation" name="recruitmentCompensation" th:value="${jobPosting.recruitmentCompensation}" />
+    <label for="compensation">채용 보상금:</label>
+    <input type="text" id="compensation" name="compensation" th:value="${jobPosting.getCompensation}" />
     <br />
 
-    <label for="recruitmentDetails" style="vertical-align: top;">채용 내용:</label>
-    <textarea id="recruitmentDetails" name="recruitmentDetails" rows="5" cols="50">
-    [[${jobPosting.recruitmentDetails}]]</textarea>
+    <label for="details" style="vertical-align: top;">채용 내용:</label>
+    <textarea id="details" name="details" rows="5" cols="50">
+    [[${jobPosting.getDetails}]]</textarea>
     <br />
 
-    <label for="technologyUsed">사용 기술:</label>
-    <input type="text" id="technologyUsed" name="technologyUsed" th:value="${jobPosting.technologyUsed}" />
+    <label for="techStack">사용 기술:</label>
+    <input type="text" id="techStack" name="techStack" th:value="${jobPosting.getTechStack}" />
     <br />
 
     <button type="submit">수정</button>
