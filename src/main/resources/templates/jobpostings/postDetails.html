@@ -25,10 +25,10 @@
   <h3 th:utext="'<strong>회사명:</strong> ' + ${jobPosting.company.name}"></h3>
   <h3 th:utext="'<strong>국가:</strong> ' + ${jobPosting.company.country}"></h3>
   <h3 th:utext="'<strong>지역:</strong> ' + ${jobPosting.company.region}"></h3>
-  <h3 th:utext="'<strong>채용포지션:</strong> ' + ${jobPosting.jobPosition}"></h3>
-  <h3 th:utext="'<strong>채용보상금:</strong> ' + ${jobPosting.recruitmentCompensation}"></h3>
-  <h3 th:utext="'<strong>사용기술:</strong> ' + ${jobPosting.technologyUsed}"></h3>
-  <h3 th:utext="'<strong>채용내용:</strong> ' + ${jobPosting.recruitmentDetails}"></h3>
+  <h3 th:utext="'<strong>채용포지션:</strong> ' + ${jobPosting.getPosition}"></h3>
+  <h3 th:utext="'<strong>채용보상금:</strong> ' + ${jobPosting.getCompensation}"></h3>
+  <h3 th:utext="'<strong>사용기술:</strong> ' + ${jobPosting.getTechStack}"></h3>
+  <h3 th:utext="'<strong>채용내용:</strong> ' + ${jobPosting.getDetails}"></h3>
   <h3><strong>다른 공고:</strong></h3>
   <!-- anotherPosts가 "None"인 경우에 메시지 표시 -->
   <h3 th:if="${anotherPosts == 'None'}"> 존재하지 않습니다.</h3>

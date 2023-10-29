@@ -64,10 +64,10 @@
     <tbody>
     <tr th:each="jobPosting : ${jobPostings}">
       <td th:text="${jobPosting.id}"></td>
-      <td th:text="${jobPosting.jobPosition}"></td>
-      <td th:text="${jobPosting.recruitmentCompensation}"></td>
-      <td th:text="${jobPosting.recruitmentDetails}"></td>
-      <td th:text="${jobPosting.technologyUsed}"></td>
+      <td th:text="${jobPosting.getPosition}"></td>
+      <td th:text="${jobPosting.getCompensation}"></td>
+      <td th:text="${jobPosting.getDetails}"></td>
+      <td th:text="${jobPosting.getTechStack}"></td>
       <td>
         <div class="button-container">
           <form th:action="@{'/companies/editJobPosting/' + ${jobPosting.id}}" method="get">
