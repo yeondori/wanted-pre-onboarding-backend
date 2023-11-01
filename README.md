@@ -61,7 +61,7 @@
 
 ## ⚙️프로젝트 구축 ![img](https://img.shields.io/badge/gradle-02303A?style=for-the-badge&logo=gradle&logoColor=white) ![img](https://img.shields.io/badge/java-007396?style=for-the-badge&logo=java&logoColor=white) ![Spring Boot](https://img.shields.io/badge/springboot-6DB33F?style=for-the-badge&logo=springboot&logoColor=white)
 
-- Project: Gradel
+- Project: Gradle
 - Language: Java
 - Spring Boot: 3.1.3 
 - Java: 17
